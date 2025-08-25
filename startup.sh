@@ -20,11 +20,13 @@ mkdir -p /usr/src/paperless/media/documents
 
 # Restore dokumen dari B2 saat startup
 echo "Syncing from Backblaze B2 (S3 API)..."
-rclone sync b2remote:${B2_BUCKET} /usr/src/paperless/media/documents --create-empty-src-dirs || true
+rclone sync b2remote:${B2_BUCKET} /usr/src/paperless/media/documents \
+  --s3-force-path-style \
+  --create-empty-src-dirs || true
 
 # Setup cron untuk sinkronisasi balik setiap 5 menit
 echo "Setting up cron job..."
-echo "*/5 * * * * rclone sync /usr/src/paperless/media/documents b2remote:${B2_BUCKET} --create-empty-src-dirs >> /var/log/cron.log 2>&1" | crontab -
+echo "*/5 * * * * rclone sync /usr/src/paperless/media/documents b2remote:${B2_BUCKET} --s3-force-path-style --create-empty-src-dirs >> /var/log/cron.log 2>&1" | crontab -
 
 # Jalankan cron (daemon)
 cron

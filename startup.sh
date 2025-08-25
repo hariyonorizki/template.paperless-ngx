@@ -46,4 +46,4 @@ tail -F /var/log/cron.log &
 
 # Jalankan Paperless-ngx
 echo "Starting Paperless-ngx server..."
-exec /entrypoint.sh runserver 0.0.0.0:8000
+exec /entrypoint.sh

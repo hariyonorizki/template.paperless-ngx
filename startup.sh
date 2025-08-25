@@ -46,4 +46,4 @@ cron
 
 # Jalankan Paperless-ngx
 echo "Starting Paperless-ngx server..."
-exec /usr/src/paperless/docker-entrypoint.sh runserver 0.0.0.0:8000
+exec /entrypoint.sh runserver 0.0.0.0:8000

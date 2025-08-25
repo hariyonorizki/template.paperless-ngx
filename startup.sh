@@ -3,6 +3,14 @@ set -e
 
 echo "Starting Paperless-ngx with B2 S3 sync..."
 
+# Matikan ENV bawaan rclone supaya gak override
+unset RCLONE_CONFIG_B2REMOTE_TYPE
+unset RCLONE_CONFIG_B2REMOTE_PROVIDER
+unset RCLONE_CONFIG_B2REMOTE_ACCESS_KEY_ID
+unset RCLONE_CONFIG_B2REMOTE_SECRET_ACCESS_KEY
+unset RCLONE_CONFIG_B2REMOTE_ENDPOINT
+unset RCLONE_CONFIG_B2REMOTE_REGION
+
 # Generate rclone.conf dari ENV
 mkdir -p /root/.config/rclone
 cat > /root/.config/rclone/rclone.conf <<EOF
@@ -38,4 +46,4 @@ cron
 
 # Jalankan Paperless-ngx
 echo "Starting Paperless-ngx server..."
-exec /entrypoint.sh runserver 0.0.0.0:8000
+exec /usr/src/paperless/docker-entrypoint.sh runserver 0.0.0.0:8000
